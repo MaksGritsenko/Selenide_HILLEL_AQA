@@ -39,7 +39,7 @@ public class MainMailinatorPage {
     }
 
     public MainMailinatorPage clickOnIncomeMessage() {
-        INCOME_MESSAGE.click();
+          INCOME_MESSAGE.click();
         return this;
     }
 
