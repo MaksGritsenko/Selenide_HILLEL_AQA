@@ -27,6 +27,7 @@ public class ApiTests {
                 .get("/api/users/2")
                 .then()
                 .statusCode(HttpStatus.SC_OK)
+                .contentType(ContentType.JSON)
                 .body("data.id", equalTo(2))
                 .body("data.email", equalTo("janet.weaver@reqres.in"))
                 .body("data.first_name", equalTo("Janet"))
@@ -53,6 +54,7 @@ public class ApiTests {
                 .get("/api/unknown/2")
                 .then()
                 .statusCode(HttpStatus.SC_OK)
+                .contentType(ContentType.JSON)
                 .body("data.id", equalTo(2))
                 .body("data.name", equalTo("fuchsia rose"))
                 .body("data.year", equalTo(2001))
@@ -69,6 +71,7 @@ public class ApiTests {
                 .get("/api/unknown")
                 .then()
                 .statusCode(HttpStatus.SC_OK)
+                .contentType(ContentType.JSON)
                 .body("page", notNullValue())
                 .body("per_page", notNullValue())
                 .body("total", notNullValue())
@@ -100,6 +103,7 @@ public class ApiTests {
                 .post("/api/login")
                 .then()
                 .statusCode(HttpStatus.SC_OK)
+                .contentType(ContentType.JSON)
                 .body("token", not(emptyOrNullString()));
     }
 
@@ -111,6 +115,7 @@ public class ApiTests {
                 .when()
                 .post("/api/login")
                 .then()
+                .contentType(ContentType.JSON)
                 .statusCode(HttpStatus.SC_BAD_REQUEST)
                 .body("error", equalTo("Missing password"));
     }
