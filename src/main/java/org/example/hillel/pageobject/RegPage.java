@@ -1,6 +1,7 @@
 package org.example.hillel.pageobject;
 
 import com.codeborne.selenide.SelenideElement;
+import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 
 import java.util.Random;
@@ -23,48 +24,59 @@ public class RegPage {
     private static final SelenideElement TITLE = $("[class = 'registration__head page-access-title']");
     private static final SelenideElement CONFIRM_FORM = $("[class = 'registration-confirm-email__description page-access-description']");
 
+    @Step("Check reg page is loaded")
     public boolean checkRegPageIsLoaded() {
         return TITLE.getText().equals("Registration");
     }
 
+    @Step("Click on personal data")
     public void clickOnPersonalDataCheckBox() {
         PERSONAL_DATA.click();
     }
 
+    @Step("Click on public data")
     public void clickOnPublicDataCheckBox() {
         PUBLIC_DATA.click();
     }
 
+    @Step("Set name and surname field")
     public void setNameAndSurnameField(String name, String surname) {
         NAME_FIELD.setValue(name);
         SURNAME_FIELD.setValue(surname);
     }
 
+    @Step("Click on next button")
     public void clickOnNextButton() {
         NEXT_BUTTON.click();
     }
 
+    @Step("Set phone field")
     public void setPhoneField(String phoneNumber) {
         PHONE_FIELD.setValue(phoneNumber);
     }
 
+    @Step("Set password field")
     public void setPasswordField(String password) {
         PASSWORD_FIELD.setValue(password);
         CONFIRM_PASSWORD_FIELD.setValue(password);
     }
 
+    @Step("Set email field")
     public void setEmailField(String email) {
         EMAIL_FIELD.setValue(email);
     }
 
+    @Step("Check confirm form is displayed")
     public boolean checkConfirmFormIsDisplayed() {
         return CONFIRM_FORM.shouldBe(visible).isDisplayed();
     }
 
+    @Step("Set confirm code")
     public void setConfirmCodeField(String code) {
         CONFIRM_CODE_FIELD.setValue(code);
     }
 
+    @Step("Click on submit button")
     public void clickOnSubmitButton() {
         SUBMIT_BUTTON.click();
     }

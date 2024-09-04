@@ -36,6 +36,31 @@
             <version>7.7.0</version>
             <scope>test</scope>
         </dependency>
+        <!-- https://mvnrepository.com/artifact/io.qameta.allure/allure-testng -->
+        <dependency>
+            <groupId>io.qameta.allure</groupId>
+            <artifactId>allure-testng</artifactId>
+            <version>2.23.0</version>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/io.qameta.allure/allure-selenide -->
+        <dependency>
+            <groupId>io.qameta.allure</groupId>
+            <artifactId>allure-selenide</artifactId>
+            <version>2.23.0</version>
+        </dependency>
+        <dependency>
+            <groupId>io.rest-assured</groupId>
+            <artifactId>rest-assured</artifactId>
+            <version>5.3.0</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.hamcrest</groupId>
+            <artifactId>hamcrest</artifactId>
+            <version>2.2</version>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
 
 
@@ -50,7 +75,22 @@
                     <suiteXmlFiles>
                         <suiteXmlFile>src/test/resources/hilleltestsuite/reg.xml</suiteXmlFile>
                     </suiteXmlFiles>
+                    <systemProperties>
+                        <property>
+                        <name>allure.result.directory</name>
+                        <value>target/allure-result</value>
+                        </property>
+                        <property>
+                            <name>allure.link.issue.parent</name>
+                            <value>https://lms.ithillel.ua/{}</value>
+                        </property>
+                    </systemProperties>
                 </configuration>
+            </plugin>
+            <plugin>
+                <groupId>io.qameta.allure</groupId>
+                <artifactId>allure-maven</artifactId>
+                <version>2.12.0</version>
             </plugin>
         </plugins>
     </build>

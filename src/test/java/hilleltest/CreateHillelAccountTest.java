@@ -1,6 +1,8 @@
 package hilleltest;
 
 import base.BaseTest;
+import io.qameta.allure.Description;
+import io.qameta.allure.Owner;
 import org.example.hillel.pageobject.AutorisationPage;
 import org.example.hillel.pageobject.HillelMainPage;
 import org.example.hillel.pageobject.RegPage;
@@ -23,14 +25,18 @@ public class CreateHillelAccountTest extends BaseTest {
     private MainMailinatorPage mainMailinatorPage;
     private String email;
 
-    @Test(testName = "Check main hillel page is loaded", priority = 1)
+    @Test(priority = 1 , testName = "Check main hillel page is loaded")
+    @Owner(value = "Hrytsenko")
+    @Description("Check main hillel page is loaded")
     public void checkMainHillelPageIsOpened() {
         hillelMainPage = open(HOME_HILLEL_URL.getUrl(), HillelMainPage.class);
         webdriver().shouldHave(url(HOME_HILLEL_URL.getUrl()));
         assertTrue(hillelMainPage.checkMainPageIsLoaded(), "Main page is not loaded");
     }
 
-    @Test(testName = "Check autorisation page is opened", priority = 2)
+    @Test(priority = 2, testName = "Check autorisation page is opened")
+    @Owner(value = "Hrytsenko")
+    @Description("Check autorisation page is opened")
     public void checkAutorisationHillelPageIsOpened() {
         autorisationPage = hillelMainPage.clickOnLogInButton();
         webdriver().shouldHave(url(HILLEL_AUTH_URL.getUrl()));
@@ -38,14 +44,18 @@ public class CreateHillelAccountTest extends BaseTest {
         assertTrue(autorisationPage.checkLoginAndRegRogFormIsDisplayed(), "Login and registration form is not displayed");
     }
 
-    @Test(testName = "Check reg name and surname page is loaded", priority = 3)
+    @Test(priority = 3, testName = "Check reg name and surname page is loaded")
+    @Owner(value = "Hrytsenko")
+    @Description("Check reg name and surname page is loaded")
     public void checkRegNameAndSurnamePageIsLoaded() {
         regPage = autorisationPage.clickOnRegButton();
         webdriver().shouldHave(url(HILLEL_REG_URL.getUrl()));
         assertTrue(regPage.checkRegPageIsLoaded(), "Reg page is not loaded");
     }
 
-    @Test(testName = "Check reg phone and email page is loaded", priority = 4)
+    @Test(priority = 4, testName = "Check reg phone and email page is loaded")
+    @Owner(value = "Hrytsenko")
+    @Description("Check reg phone and email page is loaded")
     public void checkRegPhoneAndEmailPageIsLoaded() {
         regPage.setNameAndSurnameField(REG_USER.getFirstName(), REG_USER.getLastName());
         regPage.clickOnPersonalDataCheckBox();
@@ -54,7 +64,9 @@ public class CreateHillelAccountTest extends BaseTest {
         assertTrue(regPage.checkRegPageIsLoaded(), "Reg page is not loaded");
     }
 
-    @Test(testName = "Check confirm form page is opened", priority = 5)
+    @Test(priority = 5, testName = "Check confirm form page is opened")
+    @Owner(value = "Hrytsenko")
+    @Description("Check confirm form page is opened")
     public void checkConfirmFormPageIsOpened() {
         regPage.setPhoneField(REG_USER.getNumber());
         email = EmailGenerator.generateRandomEmail();
@@ -64,7 +76,9 @@ public class CreateHillelAccountTest extends BaseTest {
         assertTrue(regPage.checkConfirmFormIsDisplayed(), "Confirm form is not displayed");
     }
 
-    @Test(testName = "Check mailinator main page is opened", priority = 6)
+    @Test(priority = 6, testName = "Check mailinator main page is opened")
+    @Owner(value = "Hrytsenko")
+    @Description("Check mailinator main page is opened")
     public void checkMailinatorMainPageIsOpened() {
         switchTo().newWindow(WindowType.TAB);
         mainMailinatorPage = open("https://www.mailinator.com/", MainMailinatorPage.class);
@@ -75,7 +89,9 @@ public class CreateHillelAccountTest extends BaseTest {
         assertTrue(mainMailinatorPage.checkIncomeMessageIsDisplayed(), "Income message is not displayed");
     }
 
-    @Test(testName = "Check confirm email", priority = 7)
+    @Test(priority = 7, testName = "Check confirm email")
+    @Owner(value = "Hrytsenko")
+    @Description("Check confirm email")
     public void checkEmailIsOpened() {
         mainMailinatorPage.clickOnIncomeMessage();
         assertTrue(mainMailinatorPage.checkEmailContainerIsDisplayed(), "Email container is not displayed");
