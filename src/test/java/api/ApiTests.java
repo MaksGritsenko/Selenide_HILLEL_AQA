@@ -6,7 +6,10 @@ import org.apache.http.HttpStatus;
 import org.example.reqres.pojo.ListResourceResponse;
 import org.example.reqres.pojo.ResourceResponse;
 import org.example.reqres.pojo.UserResponse;
+import org.example.reqres.pojo.body_request.ReqresLoginRequest;
 import org.example.reqres.request.SendRequest;
+import org.example.reqres.request.SendRequestGet;
+import org.example.reqres.request.SendRequestPost;
 import org.testng.annotations.Test;
 
 import static io.restassured.RestAssured.given;
@@ -21,7 +24,7 @@ public class ApiTests {
 
     @Test(testName = "Check single user", priority = 1)
     public void testGetSingleUser() {
-        Response response = SendRequest.sendGetRequest("/api/users/2");
+        Response response = new SendRequestGet().sendGetRequest("/api/users/2");
         response.then().statusCode(HttpStatus.SC_OK);
 
         UserResponse userResponse = response.as(UserResponse.class);
@@ -37,13 +40,13 @@ public class ApiTests {
 
     @Test(testName = "Check single user is not found", priority = 2)
     public void testGetSingleUserNotFound() {
-        Response response = SendRequest.sendGetRequest("/api/users/23");
+        Response response = new SendRequestGet().sendGetRequest("/api/users/23");
         response.then().statusCode(HttpStatus.SC_NOT_FOUND);
     }
 
     @Test(testName = "Check single resource", priority = 3)
     public void testGetSingleResource() {
-        Response response = SendRequest.sendGetRequest("/api/unknown/2");
+        Response response = new SendRequestGet().sendGetRequest("/api/unknown/2");
         response.then().statusCode(HttpStatus.SC_OK);
 
         ResourceResponse resourceResponse = response.as(ResourceResponse.class);
@@ -59,7 +62,7 @@ public class ApiTests {
 
     @Test(testName = "Check list resource", priority = 4)
     public void testGetListResources() {
-        Response response = SendRequest.sendGetRequest("/api/unknown");
+        Response response = new SendRequestGet().sendGetRequest("/api/unknown");
         response.then().statusCode(HttpStatus.SC_OK);
 
         ListResourceResponse listResourceResponse = response.as(ListResourceResponse.class);
@@ -78,32 +81,22 @@ public class ApiTests {
 
     @Test(testName = "Check single resource not found", priority = 5)
     public void testGetSingleResourceNotFound() {
-        Response response = SendRequest.sendGetRequest("/api/unknown/23");
+        Response response = new SendRequestGet().sendGetRequest("/api/unknown/23");
         response.then().statusCode(HttpStatus.SC_NOT_FOUND);
     }
 
     @Test(testName = "Check is login successful", priority = 6)
     public void testLoginSuccessful() {
-        given()
-                .contentType(ContentType.JSON)
-                .body("{ \"email\": \"eve.holt@reqres.in\", \"password\": \"cityslicka\" }")
-                .when()
-                .post("/api/login")
-                .then()
+        Response response = new SendRequestPost().sendRequestPost(new ReqresLoginRequest("eve.holt@reqres.in", "cityslicka"));
+        response.then()
                 .statusCode(HttpStatus.SC_OK)
-                .contentType(ContentType.JSON)
                 .body("token", not(emptyOrNullString()));
     }
 
     @Test(testName = "Check is login unsuccessful", priority = 7)
     public void testLoginUnsuccessful() {
-        given()
-                .contentType(ContentType.JSON)
-                .body("{ \"email\": \"eve.holt@reqres.in\" }")
-                .when()
-                .post("/api/login")
-                .then()
-                .contentType(ContentType.JSON)
+        Response response = new SendRequestPost().sendRequestPost(new ReqresLoginRequest("eve.holt@reqres.in"));
+        response.then()
                 .statusCode(HttpStatus.SC_BAD_REQUEST)
                 .body("error", equalTo("Missing password"));
     }
