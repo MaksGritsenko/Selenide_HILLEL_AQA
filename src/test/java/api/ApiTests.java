@@ -1,18 +1,14 @@
 package api;
 
-import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import org.apache.http.HttpStatus;
 import org.example.reqres.pojo.ListResourceResponse;
 import org.example.reqres.pojo.ResourceResponse;
 import org.example.reqres.pojo.UserResponse;
 import org.example.reqres.pojo.body_request.ReqresLoginRequest;
-import org.example.reqres.request.SendRequest;
 import org.example.reqres.request.SendRequestGet;
 import org.example.reqres.request.SendRequestPost;
 import org.testng.annotations.Test;
-
-import static io.restassured.RestAssured.given;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.collection.IsEmptyCollection.empty;
 import static org.hamcrest.core.IsEqual.equalTo;

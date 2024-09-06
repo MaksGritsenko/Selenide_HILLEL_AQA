@@ -1,7 +1,5 @@
 package org.example.reqres.pojo.body_request;
 
-import org.example.reqres.pojo.UserCredential;
-
 public class ReqresLoginRequest {
 
     private String email;
